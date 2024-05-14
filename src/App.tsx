@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Button, FlexBoxCol, FlexBoxRow } from "./components/styled/styled";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { CHAIN } from "@tonconnect/protocol";
+import { useEffect } from "react";
 import "@twa-dev/sdk";
 
 const StyledApp = styled.div`
@@ -28,6 +29,30 @@ const AppContainer = styled.div`
 
 function App() {
   const { network } = useTonConnect();
+  console.log(network);
+  console.log(CHAIN.TESTNET);
+
+  useEffect(() => {
+    // Initialize Telegram Web Apps SDK
+    if (window.Telegram) {
+      window.Telegram.WebApp.ready();
+    }
+  }, []);
+
+  const handleHelloButtonClick = () => {
+    if (network === CHAIN.MAINNET && window.Telegram) {
+      const user = window.Telegram.WebApp.initDataUnsafe.user;
+      if (user) {
+        console.log("Telegram User Contact: ", user);
+        alert(`Telegram User: ${user.first_name} ${user.last_name}, Username: ${user.username}`);
+      } else {
+        alert("Unable to fetch Telegram user contact information.");
+      }
+    } else {
+      alert("Mainnet is not connected.");
+    }
+  };
+  
 
   return (
     <StyledApp>
@@ -42,6 +67,7 @@ function App() {
                   : "testnet"
                 : "N/A"}
             </Button>
+            <Button onClick={handleHelloButtonClick}>Hello</Button>
           </FlexBoxRow>
           <Counter />
           <TransferTon />
