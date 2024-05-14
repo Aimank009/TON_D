@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   const handleHelloButtonClick = () => {
-    if (network === CHAIN.MAINNET && window.Telegram) {
+    if (window.Telegram) {
       const user = window.Telegram.WebApp.initDataUnsafe.user;
       if (user) {
         console.log("Telegram User Contact: ", user);
