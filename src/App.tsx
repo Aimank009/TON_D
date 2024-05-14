@@ -67,7 +67,7 @@ function App() {
                   : "testnet"
                 : "N/A"}
             </Button>
-            <Button onClick={handleHelloButtonClick}>PElllo</Button>
+            <Button onClick={handleHelloButtonClick}>PEllo</Button>
           </FlexBoxRow>
           <Counter />
           <TransferTon />
