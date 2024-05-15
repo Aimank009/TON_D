@@ -40,6 +40,7 @@ function App() {
   }, []);
 
   const handleHelloButtonClick = () => {
+    console.log(network,"hiii",CHAIN.MAINNET,"HELLO",window.Telegram)
     if (network === CHAIN.MAINNET && window.Telegram) {
       const user = window.Telegram.WebApp.initDataUnsafe.user;
       if (user) {
