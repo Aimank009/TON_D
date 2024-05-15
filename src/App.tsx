@@ -7,8 +7,8 @@ import styled from "styled-components";
 import { Button, FlexBoxCol, FlexBoxRow } from "./components/styled/styled";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { CHAIN } from "@tonconnect/protocol";
-import { useEffect } from "react";
 import "@twa-dev/sdk";
+import { useEffect } from "react";
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -19,7 +19,7 @@ const StyledApp = styled.div`
     color: white;
   }
   min-height: 100vh;
-  padding: 20px;
+  padding: 20px 20px;
 `;
 
 const AppContainer = styled.div`
@@ -36,32 +36,23 @@ function App() {
     // Initialize Telegram Web Apps SDK
     if (window.Telegram) {
       window.Telegram.WebApp.ready();
-      console.log("Telegram WebApp initialized");
-    } else {
-      console.log("Telegram WebApp not found");
     }
   }, []);
 
   const handleHelloButtonClick = () => {
-    console.log("Button clicked");
-    console.log(window.Telegram);
-
-    if (network === CHAIN.MAINNET || network === CHAIN.TESTNET) {
-      if (window.Telegram) {
-        const user = window.Telegram.WebApp.initDataUnsafe.user;
-        if (user) {
-          console.log("Telegram User Contact: ", user);
-          alert(`Telegram User: ${user.first_name} ${user.last_name}, Username: ${user.username}`);
-        } else {
-          alert("Unable to fetch Telegram user contact information.");
-        }
+    if (network === CHAIN.MAINNET && window.Telegram) {
+      const user = window.Telegram.WebApp.initDataUnsafe.user;
+      if (user) {
+        console.log("Telegram User Contact: ", user);
+        alert(`Telegram User: ${user.first_name} ${user.last_name}, Username: ${user.username}`);
       } else {
-        alert("Telegram WebApp not initialized.");
+        alert("Unable to fetch Telegram user contact information.");
       }
     } else {
       alert("Mainnet is not connected.");
     }
   };
+  
 
   return (
     <StyledApp>
